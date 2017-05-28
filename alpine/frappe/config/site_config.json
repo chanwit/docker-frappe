@@ -1,6 +1,6 @@
 {
   "admin_password": "frappe",
-  "db_host": "db",
+  "db_host": "mysql",
   "db_name": "frappe",
   "db_password": "frappe",
   "db_user": "frappe",

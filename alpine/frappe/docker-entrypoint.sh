@@ -1,7 +1,7 @@
 #!/bin/sh
 
 NODE_TYPE=$1
-DB_HOST=${DB_HOST:=db}
+DB_HOST=${DB_HOST:=mysql}
 
 bench use localhost
 
@@ -19,7 +19,7 @@ if [ ${NODE_TYPE} = "app" ]; then
 
   echo 'Waiting for DB to start up'
 
-  dockerize -wait tcp://db:3306 -timeout 120s
+  dockerize -wait tcp://mysql:3306 -timeout 120s
 
   # su frappe -c "bench --site site.local doctor > /dev/null 2>&1"
   cd /home/frappe/frappe-bench

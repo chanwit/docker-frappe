@@ -35,6 +35,7 @@ RUN apk add --update \
           ' > /usr/bin/wkhtmltopdf && \
     chmod +x /usr/bin/wkhtmltopdf && \
     rm -rf /var/cache/apk/* && \
+    npm install babel-core less chokidar babel-preset-es2015 babel-preset-es2016 babel-preset-es2017 babel-preset-babili && \
     pip install --upgrade pip
 
 RUN addgroup -S $FRAPPE_USER && \
@@ -59,7 +60,6 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 ADD ./config/ /tmp/config
 ADD ./docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN cp /tmp/config/site_config.json /home/$FRAPPE_USER/frappe-bench/sites/common_site_config.json && \
-    cp /tmp/config/site_config.json /home/$FRAPPE_USER/frappe-bench/sites/localhost/site_config.json && \
     cp /tmp/config/apps.txt /home/$FRAPPE_USER/frappe-bench/sites/apps.txt && \
     sudo chmod +x /usr/local/bin/docker-entrypoint.sh
 
@@ -67,6 +67,8 @@ VOLUME /home/$FRAPPE_USER/frappe-bench/logs
 VOLUME /home/$FRAPPE_USER/frappe-bench/sites/localhost
 
 WORKDIR /home/$FRAPPE_USER/frappe-bench
+
+EXPOSE 8000
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["app"]
